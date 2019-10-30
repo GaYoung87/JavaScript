@@ -371,6 +371,8 @@ while (i < 5) {
 
 ## 4. functions
 
+- 함수는 값이다 -> 다른 것들과 같이 변수에 할당될 수 있다.
+
 #### 1) 함수 선언식 및 표현식
 
 ```js
@@ -394,12 +396,329 @@ const sub = function(num1, num2) {
 
 ```js
 // 2. Arrow Function => 우리가 많이 사용한다.
-const addOne = function(num) {
+let addOne = function(num) {
   return num + 1
 }
 
-const addTwo = (num) => {
+addOne = (num) => {
   return num + 1
 }
+
+// 중괄호 제거는 바로 반환하겠다는 뜻
+addOne = (num) => num + 1
+
+addOne = num => num + 1
+```
+
+```js
+// Q. name이라는 인자를 받아서 hello ${name}을 반환하는 함수를
+// 선언식, 표현식, arrow function으로 만들어보세요
+
+// 함수 선언식
+
+function greeting1 (name) {
+  return `hello ${name}`
+}
+
+const greeting2 = function(name) {
+  return `hello ${name}`
+}
+
+const greeting3 = name => `hello ${name}`
+```
+
+```js
+// object를 반환하는 arrow function
+
+const makeObject1 = (value) => {
+  return {'key': value}
+}
+
+const makeObject2 = value => ({'key': value})
+// 하나의 값을 넘기고 있다는 것을 표현하기 위해 ()로 묶어줌
+
+const noArgs = () => 'No args'
+```
+
+
+
+## 5. datastructure(배열)
+
+#### 1) index
+
+```js
+const numbers = [1, 2, 3, 4]
+
+numbers[1]  // 2
+numbers[-1]  // undefined
+// javascript에서는 인덱스 0부터 가능(음수 불가능!!) -> 에러가 뜨지는 않지만 undefined가 뜸
+
+numbers.length  // 4
+```
+
+#### 2) reverse
+
+```js
+// 배열 뒤집기: 원본을 파괴
+numbers.reverse()  // 뒤집힌 배열을 반환해주고 있다. (4) [4, 3, 2, 1]
+numbers  // [4, 3, 2, 1]  -> 원본을 파괴
+```
+
+#### 3) push
+
+```js
+// 배열에 아이템 추가하기
+// push: 5라는 숫자를 넣은 다음 바뀐 array의 길이를 반환
+numbers.push('abc')  // 5 -> 배열의 길이가 5가 되어서 길이 값을 반환
+numbers.push(5)  // 6
+numbers  // (6) [4, 3, 2, 1, 'abc', 5]
+```
+
+#### 4) pop
+
+```js
+// 가장 마지막 요소 삭제 후 해당 값 반환
+numbers.pop()  // 5
+numbers  // (5) [4, 3, 2, 1, 'abc']
+```
+
+#### 5) unshift
+
+````js
+// 가장 앞에 요소 추가한 후, 새로운 배열의 길이 반환
+numbers.unshift('a')  // 6
+numbers  // ['a', 4, 3, 2, 1, 'abc']
+````
+
+#### 6) shift
+
+```js
+// 첫번째 요소 제거 후 반환
+numbers.shift()  // 'a' -> 제거한 아이템
+numbers  // [4, 3, 2, 1, 'abc']
+```
+
+#### 7) includes
+
+```js
+// include - 특정 아이템이 배열에 있는지 여부를 판단
+numbers.includes(0)  // false
+numbers.includes(1)  // true
+```
+
+#### 8) indexOf
+
+```js
+// indexOf - 특정 아이템의 index를 찾아서 반환
+numbers.push('a')
+numbers.push('a')
+numbers  // (7) [4, 3, 2, 1, "abc", "a", "a"]
+
+numbers.indexOf('a')  // 5, 일치하는 가장 첫번재 아이템의 인덱스를 반환
+numbers.indexOf('b')  // -1, 일치하는 아이템이 없으면 -1로 나옴
+```
+
+#### 9) join
+
+```js
+// join - 배열의 아이템을 함수의 인자를 seperator로 이어서 문자열로 반환
+numbers.join()  // "4,3,2,1,abc,a,a"
+numbers.join('')  // "4321abcaa"
+numbers.join('_')  // "4_3_2_1_abc_a_a"
+
+numbers  // 원본은 바뀌지 않음
+```
+
+#### 10) object  -> dictionary와 동일
+
+```js
+// object
+const name = 'jason'
+
+const me = {
+  name,  // 변수의 이름과 key의 이름이 같다면 `name: name => name`으로 생략 가능
+  'phoneNumber': '010-1234-5678',
+  appleProducts: {
+    macbook: '2018pro',
+    iphone: '7',
+  }
+}
+
+me.name  // "ssafy"
+me['name']  // "ssafy"
+me['phoneNumber']  // "010-1234-5678"
+me.appleProducts  // {macbook: "2018pro", iphone: "7"}
+me.appleProducts.macbook  // "2018pro"
+me.appleProducts.iphone  // "7"
+
+// JSON
+
+const jsonData = JSON.stringify(me)  // 직렬화 => stringify: 문자열로 바꿔라(JS Objext를 String값으로)
+
+const parseData = JSON.parse(jsonData)  // 역직렬화 => String을 JS Object로
+```
+
+
+
+## 6. array_helper_method
+
+#### 1) forEach
+
+```js
+// 1. forEach - loop를 대신 돌아줌
+
+const colors = ['red', 'green', 'blue', 'salmon']
+
+for (const color of colors) {
+  // console.log(color)
+}
+
+colors.forEach(function(color) {  // 하나씩 돌면서 찍어봐
+  console.log(color)
+})
+
+colors.forEach(color => {
+  console.log(color)
+})
+
+colors.forEach(color => console.log(color))
+```
+
+#### 2) map
+
+```js
+// 2. map - 배열 내 모든 요소에 대하여 주어진 함수를 호출한 결과를 보아 새로운 배열을 return
+//          일정한 형식의 새로운 배열을 만들 때 사용한다
+const numbers = [1, 2, 3, 4]  // (4) [1, 2, 3, 4]
+
+const doubleNumbers = numbers.map(number => {
+  return number * 2
+})
+
+// 기존 number는 유지
+const doubleNumbers1 = numbers.map(number => number * 2)
+
+doublenNumbers1  // (4) [2, 4, 6, 8]
+
+const doubleNumbers2 = numbers.map(number => {
+  return `B${number}`
+})
+
+doubleNumbers2  // (4) ['B1', 'B2', 'B3', 'B4']
+```
+
+```js
+// 숫자가 담긴 배열을 받아 각 수의 제곱근이 들어있는 새로운 배열을 만들어보자!
+// Math.sqrt라는 함수 존재
+const numbers2 = [4, 6, 9]
+
+// 답1
+numbers2.map(number => number ** 0.5)
+
+// 답2
+numbers2.map(number => Math.sqrt(number))
+```
+
+```js
+// map 헬퍼를 사용해서, distance / time (속도)를 저장하는 배열 speed를 만들어라
+const trips = [
+  {distance: 34, time: 10},
+  {distance: 90, time: 50},
+  {distance: 59, time: 25},
+]
+
+// for trip in trips:
+//   pass
+
+const speeds = trips.map(trip => {
+  return trip.distance / trip.time
+})
+```
+
+#### 3) filter
+
+```js
+// 3. filter - 주어진 함수의 테스트를 통과하는 모든 요소를 모아서 새로운 배열 반환
+// 짝수인 숫자를 구하겠다.
+const numbers = [1, 2, 3, 4]
+numbers.filter(number => {
+  return number % 2 === 0
+})                            // (2) [2, 4]
+
+numbers.filter(number => {
+  return number % 2 !== 1
+})                            // (2) [2, 4]
+
+// fruit인 products들만 모아라
+const products = [
+  { name: 'cucumber', type: 'vege' },  // object 선언시 앞뒤 띄어쓰기
+  { name: 'banana', type: 'fruit' },
+  { name: 'tomato', type: 'vege' },
+  { name: 'apple', type: 'fruit' },
+]
+
+const fruits = products.filter(product => {
+  return product.type === 'fruit'
+})
+fruits  // (2) [{…}, {…}]
+        // 0: {name: "banana", type: "fruit"}
+        // 1: {name: "apple", type: "fruit"}
+        // length: 2
+        // __proto__: Array(0)
+```
+
+```js
+// 나이가 50 이상인 아이템만 가지고 있는 새로운 배열을 만드세요
+const ages = [15, 25, 35, 45, 55, 65, 75, 85, 95]
+
+const oldAges = ages.filter((age, index, self) =>{
+  console.log(age, index, self)
+  return age >= 50
+})
+```
+
+#### 4) find
+
+```js
+// find - 주어진 판별 함수를 만족하는 첫번째 요소의 값을 반환, 없다면 undefined 반환
+const users = [
+  { name: 'Tony Stark', age: 45 },
+  { name: 'Steve Rogers', age: 32 },
+  { name: 'Thor', age: 40 },
+]
+
+const tony = users.find(user => {
+  return user.name === 'Tony Stark'
+})
+```
+
+#### 5) some & every
+
+```js
+// some - 배열 안의 어떤 요소라도 (=== 가 하나라도!) 주어진 판별 함수를
+//        통과하는지 테스트하고 결과에 따라 boolean 값을 반환한다.
+
+// 하나의 요소라도 짝수를 포함하고 있다면 true
+const arr = [1, 2, 3, 4, 5]
+const result = arr.some(number => {
+  return number % 2 === 0
+})
+
+// every - 모든 요소가 짝수를 포함하고 있다면 true
+const result2 = arr.every(number => {
+  return number % 2 === 0
+})
+
+// Q.
+// requests - 배열에서 각 요청들 중 status가 pending인 요청이 있는지 확인하라
+const requests = [
+  { url: '/photos', status: 'complete' },
+  { url: '/albums', status: 'pending' },
+  { url: '/users', status: 'failed' },
+]
+
+const isInProgress = requests.some(request => {
+  return request.status === 'pending'
+})
 ```
 

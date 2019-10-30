@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Shopping List</title>
+</head>
+<body>
+  <h1>My shopping list</h1>
+  <div>
+    Enter a new item:
+    <input type="text">
+    <button>Add item</button>
+  </div>
+  <ul>
+  </ul>
+
+  <script>
+    const button = document.querySelector('button')  // button을 클릭하면 일을 수행해주려고
+    button.addEventListener('click', () => {  // 누르는 순간
+      const input = document.querySelector('input')  // 필요할 때 꺼낼 수 있도록 input 지정
+      const value = input.value  // 필요할 때 꺼낼 수 있도록 value 지정
+
+      // value를 밑에 li tag가지고 보여주기
+      const newItem = document.createElement('li')  // li tag안에 value값 그대로 가지고와서 작성하기
+      newItem.innerText = value  // value값을 가지고와서 newItem으로 보내는것
+      // li - value가 나오는데, 어디에서 나올지 지정!
+      document.querySelector('ul').appendChild(newItem)
+    })
+  </script>
+</body>
+</html>

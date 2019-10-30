@@ -722,3 +722,35 @@ const isInProgress = requests.some(request => {
 })
 ```
 
+#### 6) reduce
+
+```js
+// reduce - 배열의 각 요소에 대해 주어진 `reducer`함수를 실행하고 하나의 값을 반환.
+// reduce는 배열 내의 숫자 총합, 배열 내 평균 계산 등 배열의 값을 하나로 줄이는 동작을 한다.
+
+const ssafyTest = [90, 99, 78, 80]
+
+// 1단계
+// const sum = ssafyTest.reduce(() => {})  // array함수 만든 것: () => {}
+
+// 2단계
+// const sum = ssafyTest.reduce((total, score) => {})  // 합(total))구할것, 각각의 아이템(score))
+
+// 3단계
+// const sum = ssafyTest.reduce((total, score) => {}, 0) // total이 0이여야만 합을 구할 수 있음
+                                                         // 누적 값을 0부터 시작하겠다
+
+// 4단계
+const sum = ssafyTest.reduce((total, score) => {
+  total += score
+  return total  // 다음 루프로 누적 값을 넘김
+}, 0)
+
+// ssafyTest 배열을 doubleSsafyTest로 만드시오! (reduce로 map구현)
+const doubleSsafyTest = ssafyTest.reduce((double, score) => {
+  double.push(score * 2)
+  console.log(double)
+  return double  // 다음 루프로 누적값 double을 넘긴다
+}, [])
+```
+

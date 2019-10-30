@@ -182,3 +182,11 @@ const doubleSsafyTest = ssafyTest.reduce((double, score) => {
   console.log(double)
   return double  // 다음 루프로 누적값 double을 넘긴다
 }, [])
+
+// 평균값 구하기
+len = ssafyTest.length
+const mean = ssafyTest.reduce((total, score) => {
+  console.log(total, score)
+  total += score/len
+  return total
+}, 0)

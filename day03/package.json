@@ -1,0 +1,14 @@
+{
+  "name": "day03",
+  "version": "1.0.0",
+  "description": "JS 연습입니당.",
+  "main": "00_non_blocking.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gayoung",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0"
+  }
+}

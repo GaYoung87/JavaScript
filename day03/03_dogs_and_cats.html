@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Axios 가지고옴 -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>Dogs and Cats</title>
+  <style>
+    img {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+
+</head>
+<body>
+  <h1>댕댕이</h1>
+  <!-- 댕댕이 내놔! 라는 버튼 만들기 -->
+  <button id="get-dog-btn">댕댕이 내놔!</button>
+  <!-- 냥냥이 내놔! 라는 버튼 만들기 -->
+  <button id="get-cat-btn">냥냥이 내놔!</button>
+
+  <div class="animals"></div>
+  <script>
+    // 댕댕이 API URL
+
+    // url이 너무 기니까 딸 지정해주겠다
+    const DOG_API_URL = 'https://dog.ceo/api/breeds/image/random'
+    const CAT_API_URL = 'https://api.thecatapi.com/v1/images/search'
+    const animalsList = document.querySelector('div.animals')  // 댕댕이, 냥냥이 둘다 해당되므로 위에 빼놓는다
+
+    // getDogImage 함수를 실행시킬 때마다 볼 수 있음!
+    // 그 전에는 초기화(f5)할때마다 나옴
+    const getDogImage = function() {
+      // axios라고 시작할 수 있는 이유가 위에서 이미 호출했기 때문에, 이미 Axios가 정의되어있으므로 사용 가능
+      // Axios를 통해 댕댕이 사진을 달라는 요청을 보낸다
+      axios.get(DOG_API_URL)
+      // 그리고나서 요청이 도착하면 함수를 실행한다!
+        .then(function(response) {
+          // 응답받은 데이터에서 댕댕이 이미지의 url을 꺼낸다.
+          const imageUrl = response.data.message
+          // 댕댕이 이미지를 화면에 표현하기 위한 이미지 태그를 생성한다.
+          const dogImage = document.createElement('img')
+          dogImage.src = imageUrl
+          dogImage.alt = 'dog'
+
+          // div.aminals 안에 댕댕이 이미지 태그를 push 한다
+          animalsList.appendChild(dogImage)
+        })
+    }
+    
+
+    // Axios를 사용하여 CAT_URL_API로 요청을 보내 고양이 사진을 호출한 뒤, 
+    // div.animals에 img 테그를 생성해서 push 하는 함수를 구현하세요
+    const getCatImage = function() {
+      axios.get(CAT_API_URL)
+        .then(function(response) {
+          // console.log(response)
+          // 응답받은 데이터에서 고양이 url을 꺼낸다.
+          const imageUrl = response.data["0"].url
+          const catImage = document.createElement('img')
+          catImage.src = imageUrl  // 주소
+          catImage.alt = 'cat' 
+          
+          // const animalsList = document.querySelector('div.animals')
+          animalsList.appendChild(catImage)
+        })
+    }
+
+
+
+    // 댕댕이 내놔! 라는 버튼을 누르면 사진이 계속 쌓일 수 있도록 하는 함수!
+    const getDogButton = document.querySelector('#get-dog-btn')
+
+    // button.addEventListener('click', getDogImage)와 동일
+    getDogButton.addEventListener('click', function(event) {
+      // 강아지 사진을 가지고오라는 함수가 getDogImage이다.
+      getDogImage()  // 함수 실행하는 것
+    })
+
+    // get-cat-btn을 누를 때마다 getCatImage를 실행하는 이벤트를 생성하세요
+    const getCatButton = document.querySelector('#get-cat-btn')
+
+    getCatButton.addEventListener('click', getCatImage)
+    
+  </script>
+
+</body>
+</html>

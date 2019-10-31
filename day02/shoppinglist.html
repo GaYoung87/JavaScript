@@ -16,18 +16,64 @@
   <ul>
   </ul>
 
-  <script>
-    const button = document.querySelector('button')  // button을 클릭하면 일을 수행해주려고
-    button.addEventListener('click', () => {  // 누르는 순간
-      const input = document.querySelector('input')  // 필요할 때 꺼낼 수 있도록 input 지정
-      const value = input.value  // 필요할 때 꺼낼 수 있도록 value 지정
 
-      // value를 밑에 li tag가지고 보여주기
-      const newItem = document.createElement('li')  // li tag안에 value값 그대로 가지고와서 작성하기
-      newItem.innerText = value  // value값을 가지고와서 newItem으로 보내는것
-      // li - value가 나오는데, 어디에서 나올지 지정!
-      document.querySelector('ul').appendChild(newItem)
+
+  <script>
+    // button을 눌렀을 때 발생하는 일.
+    // 눌렀을 때 실행되는 함수에서 input안에 있는 것을 누르는 시점에 ul안에 넣어줘야함
+    const input = document.querySelector('input')
+    const button = document.querySelector('button')
+    const list = document.querySelector('ul')  // 너한테 자식을 append할거라는 걸 알려줘야함!
+
+    // 버튼을 눌렀을 때만
+    button.addEventListener('click', function(event) {
+      // input의 value값을 가져온다
+      const text = input.value
+
+      if (!text) {
+        console.log('아무것도 없어!')
+        return
+      }
+      // input의 value값을 초기화한다.
+      input.value = ''
+
+      // list item 요소를 생성한다
+      const item = document.createElement('li')
+      
+      // item의 텍스트로 input의 value값 할당한다
+      item.innerText = text
+
+      // 삭제하기 버튼을 만든다
+      const deleteButton = document.createElement('button')
+
+      // 삭제하기 버튼에 이름을 지어준다
+      deleteButton.innerText = 'delete'  // innerText는 <li>가나다라</li> 사이의 단어!(가나다라)
+
+      // 삭제하기 버튼을 클릭했을 때,,
+      deleteButton.addEventListener('click', function(event) {
+        //item(위에서 만든 li요소)을 삭제한다.
+        item.remove()
+      })
+
+      // item에 버튼을 만들어준다.
+      item.appendChild(deleteButton)  // item은 우리가 생성한 li
+
+      // list에 item을 추가한다.
+      list.appendChild(item)
     })
+
+    // 내 코드
+    // const button = document.querySelector('button')  // button을 클릭하면 일을 수행해주려고
+    // button.addEventListener('click', () => {  // 누르는 순간
+    //   const input = document.querySelector('input')  // 필요할 때 꺼낼 수 있도록 input 지정
+    //   const value = input.value  // 필요할 때 꺼낼 수 있도록 value 지정
+
+    //   // value를 밑에 li tag가지고 보여주기
+    //   const newItem = document.createElement('li')  // li tag안에 value값 그대로 가지고와서 작성하기
+    //   newItem.innerText = value  // value값을 가지고와서 newItem으로 보내는것
+    //   // li - value가 나오는데, 어디에서 나올지 지정!
+    //   document.querySelector('ul').appendChild(newItem)
+    // })
   </script>
 </body>
 </html>

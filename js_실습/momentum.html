@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Axios 가지고옴 -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>Momentum</title>
+  <!-- 전체에 배경화면을 주기위해서 -->
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    div {
+      color:white;
+      font-size:120px;
+      text-align:center;
+      margin-top:200px;
+      font-family: Nanum Gothic, sans-serif;
+      font-weight: bold;
+      letter-spacing: -2px;
+   }
+
+   p {
+      color:white;
+      font-size:50px;
+      margin-bottom: 10px;
+      margin-top: 30px;
+      text-align:center;
+      font-family: Nanum Gothic, sans-serif;
+      font-weight: bold;
+      letter-spacing: -2px;
+   }
+
+  </style>
+</head>
+<body>
+
+  <!-- <span id='hour'></span>
+  <span id='minute'></span> -->
+  <div id='time'></div>
+  <p>Good morning, gayoung</p> 
+
+  <script>
+  // Axios로 요청을 보내서 받아와야함.
+  const url = 'https://source.unsplash.com/1920x1080/?nature,water'
+
+  axios.get(url)
+    .then(function(response) {
+      console.log(response)
+      const body = document.querySelector('body')
+      const imgUrl = response.request.responseURL
+      body.background = imgUrl
+      console.log(imgUrl)
+    })
+
+  // 우리는 page에 시간칸과 분 칸을 넣을 것이다. 이 칸을 body에서 span을 이용해 만든다
+  // 그 값을 넣는 것은 js로 script이용
+
+  // 칸에 값을 넣기 위해서는 innerText를 사용해야하니까
+  // 칸에 대한 정보를 script안으로 가지고와야함.
+  const time = document.querySelector('#time')
+  const message = document.querySelector('#message')
+
+  // 시간 매순간 바뀌게 하는 함수: setInterval
+  setInterval( function(){
+    // time 값에 대한 정보
+    const s_time = new Date().toLocaleTimeString().slice(3, 8)
+    // time칸에 time 해당 값 넣기
+    time.innerText = s_time
+  }, 1000)
+
+  </script>
+
+</body>
+</html>
